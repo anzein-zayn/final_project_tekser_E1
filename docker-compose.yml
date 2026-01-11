@@ -55,6 +55,9 @@ services:
 networks:
   todolist_network:
     driver: bridge
+    name : net_tekser_${GROUP_NAME:-E1}
 
 volumes:
   db_data: 
+    name: mysql_data_${GROUP_NAME:-E1}
+    driver: local
