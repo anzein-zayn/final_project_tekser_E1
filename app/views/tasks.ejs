@@ -1,0 +1,59 @@
+<%- include('partials/header') %>
+
+<h3 class="mb-3">📋 My Tasks</h3>
+
+<div class="card mb-4">
+  <div class="card-body">
+    <form action="/tasks" method="POST" class="row g-2">
+      <div class="col-md-3">
+        <input type="text" name="title" class="form-control" placeholder="Task title" required>
+      </div>
+
+      <div class="col-md-3">
+        <input type="date" name="deadline" class="form-control" required>
+      </div>
+
+      <div class="col-md-4">
+        <input type="text" name="description" class="form-control" placeholder="Description">
+      </div>
+
+      <div class="col-md-2">
+        <button class="btn btn-primary w-100">Add Task</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<table class="table table-bordered table-hover">
+  <thead class="table-light">
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Deadline</th>
+      <th>Status</th>
+      <th width="150">Action</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% tasks.forEach(task => { %>
+      <tr>
+        <td><%= task.title %></td>
+        <td><%= task.description %></td>
+        <td><%= task.deadline %></td>
+        <td>
+          <span class="badge bg-<%= task.status === 'sudah selesai' ? 'success' : 'warning' %>">
+            <%= task.status %>
+          </span>
+        </td>
+        <td>
+          <a href="/tasks/edit/<%= task.id %>" class="btn btn-sm btn-warning">Edit</a>
+          <a href="/tasks/delete/<%= task.id %>" class="btn btn-sm btn-danger"
+             onclick="return confirm('Yakin hapus task?')">Delete</a>
+        </td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
+
+<%- include('partials/footer') %>
